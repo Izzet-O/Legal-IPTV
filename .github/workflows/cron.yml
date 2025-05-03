@@ -1,8 +1,8 @@
 name: Generate & deploy playlists
 
 on:
+  workflow_dispatch:
   schedule:
-    # every two hours
     - cron: '0 */2 * * *'
 
 jobs:
@@ -10,18 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-
       - name: Install dependencies
         run: pip install -r requirements.txt
-
       - name: Build playlists
         run: python3 scripts/build_playlists.py
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
