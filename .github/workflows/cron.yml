@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      - name: Build playlists
+      run: python3 scripts/<your-script-name>.py
       - name: Copy playlists to root
         run: |
           cp -R lists/* .
