@@ -3,17 +3,13 @@ name: Generate & deploy playlists
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *'   # every two hours
+    - cron: '0 */2 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code (with submodules)
-        uses: actions/checkout@v3
-        with:
-          # this pulls in the scripts/ submodule so your build script is present
-          submodules: recursive
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -21,27 +17,17 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        # if you already have a requirements.txt you can list your deps here,
-        # or leave this as a no-op if none are needed
         run: |
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          fi
+          pip install -r scripts/requirements.txt
+          pip install -r scrapers/yayinlar/requirements.txt
 
       - name: Build playlists
         run: python3 scripts/build_playlists.py
-
-      - name: Copy generated lists to root
-        run: |
-          cp -R lists/* .
-
-      - name: Bypass Jekyll processing
-        run: touch .nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
+          publish_dir: ./lists
           clean: true
