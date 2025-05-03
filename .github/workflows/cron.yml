@@ -1,15 +1,26 @@
 name: Generate & deploy playlists
 
 on:
+  # Allow manual runs from the Actions UI
   workflow_dispatch:
+  # And run every two hours
   schedule:
     - cron: '0 */2 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install OS dependencies for lxml
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-dev libxslt1-dev python3-dev
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -18,16 +29,25 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Optional: upgrade pip to latest
+          pip install --upgrade pip
           pip install -r scripts/requirements.txt
           pip install -r scrapers/requirements.txt
 
       - name: Build playlists
         run: python3 scripts/build_playlists.py
 
+      - name: Copy generated lists to root
+        run: |
+          cp -R lists/* .
+
+      - name: Bypass Jekyll processing
+        run: touch .nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./lists
+          publish_dir: .
           clean: true
