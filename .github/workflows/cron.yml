@@ -1,22 +1,41 @@
-name: Deploy static playlists
+name: Generate & deploy playlists
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 */2 * * *'   # every two hours
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code (with submodules)
+        uses: actions/checkout@v3
+        with:
+          # this pulls in the scripts/ submodule so your build script is present
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        # if you already have a requirements.txt you can list your deps here,
+        # or leave this as a no-op if none are needed
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
       - name: Build playlists
-      run: python3 scripts/<your-script-name>.py
-      - name: Copy playlists to root
+        run: python3 scripts/build_playlists.py
+
+      - name: Copy generated lists to root
         run: |
           cp -R lists/* .
 
-      - name: Create .nojekyll
+      - name: Bypass Jekyll processing
         run: touch .nojekyll
 
       - name: Deploy to GitHub Pages
