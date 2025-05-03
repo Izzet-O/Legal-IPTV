@@ -1,9 +1,7 @@
 name: Generate & deploy playlists
 
 on:
-  # Allow manual runs from the Actions UI
   workflow_dispatch:
-  # And run every two hours
   schedule:
     - cron: '0 */2 * * *'
 
@@ -29,13 +27,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Optional: upgrade pip to latest
           pip install --upgrade pip
           pip install -r scripts/requirements.txt
           pip install -r scrapers/requirements.txt
 
       - name: Build playlists
-        run: python3 scripts/build_playlists.py
+        # Pass in your config.json so sys.argv[1] exists
+        run: python3 scripts/build_playlists.py scripts/config.json
 
       - name: Copy generated lists to root
         run: |
