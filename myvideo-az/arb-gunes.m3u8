@@ -1,6 +1,6 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:BANDWIDTH=2096000
-http://149.255.152.199/arbgunes.m3u8?bandwidth=2096&e=1746665818&playlistlength=5&shift=0&sid=coder_52&token=612db225d9fe92c16d1c58313a69e3df&user=37076
+http://149.255.152.199/arbgunes.m3u8?bandwidth=2096&e=1746673099&playlistlength=5&shift=0&sid=coder_52&token=c5813a7a3e6ec2b810050bb5f7467426&user=37076
 #EXT-X-STREAM-INF:BANDWIDTH=796000
-http://149.255.152.199/arbgunes.m3u8?bandwidth=796&e=1746665818&playlistlength=5&shift=0&sid=coder_52&token=612db225d9fe92c16d1c58313a69e3df&user=37076
+http://149.255.152.199/arbgunes.m3u8?bandwidth=796&e=1746673099&playlistlength=5&shift=0&sid=coder_52&token=c5813a7a3e6ec2b810050bb5f7467426&user=37076
