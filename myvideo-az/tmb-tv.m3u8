@@ -1,6 +1,6 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:BANDWIDTH=2128000
-http://149.255.152.199/tmbtv.m3u8?bandwidth=2128&e=1772642522&playlistlength=5&shift=0&sid=coder_52&token=2953ec2e4786f2809a40353f956ed01e&user=37076
+http://149.255.152.199/tmbtv.m3u8?bandwidth=2128&e=1772649726&playlistlength=5&shift=0&sid=coder_52&token=fb96d53e13e9de846d0b2ca5b0b93b36&user=37076
 #EXT-X-STREAM-INF:BANDWIDTH=924000
-http://149.255.152.199/tmbtv.m3u8?bandwidth=924&e=1772642522&playlistlength=5&shift=0&sid=coder_52&token=2953ec2e4786f2809a40353f956ed01e&user=37076
+http://149.255.152.199/tmbtv.m3u8?bandwidth=924&e=1772649726&playlistlength=5&shift=0&sid=coder_52&token=fb96d53e13e9de846d0b2ca5b0b93b36&user=37076
